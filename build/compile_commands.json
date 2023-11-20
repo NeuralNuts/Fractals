@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/neuralnuts/Projects/Fractals/build",
+  "command": "/usr/bin/g++   -g -o CMakeFiles/Fractals.dir/main.cpp.o -c /home/neuralnuts/Projects/Fractals/main.cpp",
+  "file": "/home/neuralnuts/Projects/Fractals/main.cpp",
+  "output": "CMakeFiles/Fractals.dir/main.cpp.o"
+}
+]

@@ -1,0 +1,3 @@
+/home/neuralnuts/Projects/Fractals/build/CMakeFiles/Fractals.dir
+/home/neuralnuts/Projects/Fractals/build/CMakeFiles/edit_cache.dir
+/home/neuralnuts/Projects/Fractals/build/CMakeFiles/rebuild_cache.dir
