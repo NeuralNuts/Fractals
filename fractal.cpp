@@ -1,4 +1,3 @@
-// main.cpp
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
@@ -13,7 +12,6 @@ const char* vertexShaderSource = R"glsl(
     }
 )glsl";
 
-// Updated fragment shader source
 const char* fragmentShaderSource = R"glsl(
     #version 330 core
     out vec4 FragColor;
@@ -30,6 +28,7 @@ const char* fragmentShaderSource = R"glsl(
         
         int max_iter = 300;
         float i;
+
         for(i = 0.0; i < max_iter; i++) {
             if(length(z) > 4.0) break;
             z = vec2(z.x*z.x - z.y*z.y, 2.0*z.x*z.y) + c;
@@ -44,7 +43,6 @@ float zoom = 1.0f;
 glm::vec2 pan = glm::vec2(0.0f, 0.0f);
 
 int main() {
-    // GLFW initialization and window creation
     if (!glfwInit()) {
         std::cerr << "Failed to initialize GLFW" << std::endl;
         return -1;
@@ -61,23 +59,24 @@ int main() {
     }
     glfwMakeContextCurrent(window);
 
-    // GLEW initialization
     glewExperimental = GL_TRUE;
     if (glewInit() != GLEW_OK) {
         std::cerr << "Failed to initialize GLEW" << std::endl;
         return -1;
     }
 
-    // Shader compilation and linking
     GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    
     glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
     glCompileShader(vertexShader);
 
     GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    
     glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
     glCompileShader(fragmentShader);
 
     GLuint shaderProgram = glCreateProgram();
+    
     glAttachShader(shaderProgram, vertexShader);
     glAttachShader(shaderProgram, fragmentShader);
     glLinkProgram(shaderProgram);
@@ -85,14 +84,15 @@ int main() {
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 
-    // Vertex data setup
     float vertices[] = {
         -1.0f, -1.0f,
          1.0f, -1.0f,
         -1.0f,  1.0f,
          1.0f,  1.0f,
     };
-    GLuint VBO, VAO;
+    
+    GLuint VBO, VAO
+    ;
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glBindVertexArray(VAO);
@@ -103,15 +103,11 @@ int main() {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
-    // Main loop
     //float zoom = 1.0f;
     float panX = -0.5f, panY = 0.0f;
 
     while (!glfwWindowShouldClose(window)) {
         glfwPollEvents();
-
-        // Update zoom and pan based on user input
-        // For example: Use arrow keys to pan, 'A' and 'D' to zoom in/out
 
         if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
             zoom *= 1.01f;  // Zoom in
@@ -126,7 +122,6 @@ int main() {
             pan.x += 0.01f / zoom;  // Pan right
         }
 
-        // Render
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
@@ -141,7 +136,6 @@ int main() {
         glfwSwapBuffers(window);
     }
 
-    // Cleanup
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
     glDeleteProgram(shaderProgram);
