@@ -49,17 +49,14 @@ int main() {
         return -1;
     }
 
-    // Compile shaders
     GLuint vertexShader = compileShader(GL_VERTEX_SHADER, vertexShaderSource);
     GLuint fragmentShader = compileShader(GL_FRAGMENT_SHADER, fragmentShaderSource);
 
-    // Create shader program
     GLuint shaderProgram = glCreateProgram();
     glAttachShader(shaderProgram, vertexShader);
     glAttachShader(shaderProgram, fragmentShader);
     glLinkProgram(shaderProgram);
 
-    // Check for linking errors
     int success;
     char infoLog[512];
     glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
@@ -71,17 +68,15 @@ int main() {
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 
-    float a = 1.0f, b = 2.0f; // Parameters for the parametric equation
+    float a = 1.0f, b = 2.0f;
     std::vector<float> vertices;
 
     while (!glfwWindowShouldClose(window)) {
         vertices.clear();
-
-        // Update parameters 'a' and 'b' for animation
+        
         a += 0.01f;
         b += 0.01f;
 
-        // Generate points based on the parametric equation
         for (float t = 0.0f; t < 6.28f; t += 0.01f) { // 6.28 ~ 2 * PI
             float x = std::sin(a * t);
             float y = std::cos(b * t);
@@ -98,7 +93,6 @@ int main() {
         glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
         glEnableVertexAttribArray(0);
 
-        // Draw
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         glUseProgram(shaderProgram);
